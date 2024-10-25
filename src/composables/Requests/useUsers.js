@@ -22,7 +22,7 @@ export default function useUsers() {
    * Request get all list customer
    * @param {string|Number} page pagination
    */
-  const getListUsers = async (page = 2) => {
+  const getListUsers = async (page = 1) => {
     showLoading("Loading....", "bg-transparent", "positive");
     const url = page == 1 ? "v1/users" : `v1/users?page=${page}`;
     await api
@@ -71,8 +71,7 @@ export default function useUsers() {
         }
       })
       .catch((e) => {
-        errorNotify(e.response.data.message);
-        // multError(e.response.data.errors, 2);
+        multError(e.response.data, 2);
       })
       .finally(() => {
         hideLoading();

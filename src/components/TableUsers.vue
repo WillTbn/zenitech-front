@@ -25,13 +25,6 @@
         <template v-slot:body-cell-actions="props">
           <q-td :props="props">
             <div class="row justify-center q-gutter-md">
-              <!-- <q-btn
-                flat
-                icon="fa-solid fa-lock-open"
-                label="Desbloquear"
-                no-caps
-              /> -->
-              <!-- @click.prevent="activeDialog(props.row)" -->
               <q-btn
                 color="primary"
                 icon="fa-solid fa-user-pen"
