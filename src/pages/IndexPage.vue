@@ -1,15 +1,20 @@
 <template>
   <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
+    <table-users style="min-height: 70%" />
   </q-page>
 </template>
 
 <script setup>
+import TableUsers from "src/components/TableUsers.vue";
+import useUsers from "src/composables/Requests/useUsers";
+import { onMounted } from "vue";
+
+const { getListUsers } = useUsers();
+
+onMounted(async () => {
+  await getListUsers();
+});
 defineOptions({
-  name: 'IndexPage'
+  name: "IndexPage",
 });
 </script>
