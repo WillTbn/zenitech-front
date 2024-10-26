@@ -15,13 +15,13 @@
         :key="list"
         hide-pagination
       >
-        <!-- <template v-slot:body-cell-photo="props">
+        <template v-slot:body-cell-photo="props">
           <q-td :props="props">
             <q-avatar size="md">
               <img :src="props.row.photo" />
             </q-avatar>
           </q-td>
-        </template> -->
+        </template>
         <template v-slot:body-cell-actions="props">
           <q-td :props="props">
             <div class="row justify-center q-gutter-md">

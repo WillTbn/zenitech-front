@@ -13,16 +13,16 @@ export default function useTableUser() {
     //   required: true,
 
     // },
-    // {
-    //   name: "avatar",
-    //   required: true,
-    //   label: "#",
-    //   align: "left",
-    //   field: (row) => row.avatar,
-    //   format: (val) => `https://testapi.strategyanalytics.com.br/storage/users/${val}`,
-    //   sortable: true,
-    //   required: true
-    // },
+    {
+      name: "photo",
+      required: true,
+      label: "#",
+      align: "left",
+      field: (row) => row.photo,
+      format: (val) => `${val}`,
+      sortable: true,
+      required: true,
+    },
     {
       name: "name",
       align: "left",
