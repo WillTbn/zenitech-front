@@ -1,18 +1,11 @@
 import { ref } from "vue";
-
+import { date } from "quasar";
 export default function useTableUser() {
+  const dateFormatDMY = (value) => {
+    let dateCurrent = new Date(value);
+    return date.formatDate(dateCurrent, "DD/MM/YYYY");
+  };
   const columnsUser = [
-    // {
-    //   name: "id",
-    //   required: true,
-    //   label: "ID",
-    //   align: "left",
-    //   field: (row) => row.id,
-    //   format: (val) => `#${val}`,
-    //   sortable: true,
-    //   required: true,
-
-    // },
     {
       name: "photo",
       required: true,
@@ -40,8 +33,11 @@ export default function useTableUser() {
     {
       name: "date_of_birth",
       align: "left",
+      field: (row) => row.date_of_birth,
+      format: (val) => {
+        return dateFormatDMY(val);
+      },
       label: "Data de nascimento",
-      field: "date_of_birth",
       sortable: true,
     },
     {
@@ -53,17 +49,6 @@ export default function useTableUser() {
   ];
 
   const columnsAdms = [
-    // {
-    //   name: "id",
-    //   required: true,
-    //   label: "ID",
-    //   align: "left",
-    //   field: (row) => row.id,
-    //   format: (val) => `#${val}`,
-    //   sortable: true,
-    //   required: true,
-
-    // },
     {
       name: "photo",
       required: true,
@@ -81,20 +66,6 @@ export default function useTableUser() {
       field: "email",
       sortable: true,
     },
-    // {
-    //   name: "balance",
-    //   align: "left",
-    //   label: "Saldo",
-    //   field: "balance",
-    //   sortable: true,
-    // },
-    // {
-    //   name: "loan",
-    //   align: "left",
-    //   label: "Saldo devedor",
-    //   field: "loan",
-    //   sortable: true,
-    // },
     {
       name: "actions",
       label: "Ações",
@@ -102,6 +73,7 @@ export default function useTableUser() {
       field: "action",
     },
   ];
+
   const roleControl = ref(false);
   const controlIncome = ref(false);
   const viewExtract = ref(false);

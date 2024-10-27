@@ -30,6 +30,12 @@
             <q-td :props="props">
               <div class="row justify-center q-gutter-md">
                 <q-btn
+                  color="accent"
+                  icon="fa-solid fa-eye"
+                  no-caps
+                  @click.prevent="goSeeUser(props.row)"
+                />
+                <q-btn
                   color="primary"
                   icon="fa-solid fa-user-pen"
                   no-caps
@@ -54,27 +60,9 @@
       <pagination-list />
     </div>
     <q-dialog v-model="deleteUserDialog">
-      <q-card>
-        <q-card-section>
-          <div class="text-h6">Você vai delete o {{ user.name }}</div>
-        </q-card-section>
-
-        <q-card-section class="q-pt-none">
-          Tem certeza que quer excluir o usuário de e-mail
-          <b> {{ user.email }}</b>
-        </q-card-section>
-
-        <q-card-actions align="right">
-          <q-btn
-            flat
-            label="Confirmar exclução"
-            color="negative"
-            v-close-popup
-            @click.prevent="setDelete()"
-          />
-        </q-card-actions>
-      </q-card>
+      <delete-users :user="user" />
     </q-dialog>
+    <q-dialog v-model="seeDialog"> <details-user :user="user" /></q-dialog>
   </div>
 </template>
 <script setup>
@@ -86,10 +74,12 @@ import useTableUser from "src/composables/Helpers/useTableUser";
 import useUsers from "src/composables/Requests/useUsers";
 import GetByNameForm from "./GetByNameForm.vue";
 import PaginationList from "./PaginationList.vue";
-
+import DeleteUsers from "./DeleteUsers.vue";
+import DetailsUser from "./DetailsUser.vue";
 const { columnsUser, btnActions, handlerAction } = useTableUser();
 const filter = ref("");
 const deleteUserDialog = ref(false);
+const seeDialog = ref(false);
 const user = ref();
 const storeUser = useUserStore();
 const { list, pagination, searchByName } = storeToRefs(storeUser);
@@ -103,9 +93,9 @@ const goDelete = (row) => {
   user.value = row;
   deleteUserDialog.value = true;
 };
-const setDelete = async () => {
-  await deleteUser(user.value.id);
-  deleteUserDialog.value = false;
+const goSeeUser = (row) => {
+  user.value = row;
+  seeDialog.value = true;
 };
 </script>
 <style lang=""></style>
