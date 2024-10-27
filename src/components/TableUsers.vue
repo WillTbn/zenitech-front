@@ -3,7 +3,10 @@
     <div class="col-12 text-end self-end">
       <q-btn to="/created" label="cria usuário" color="positive"></q-btn>
     </div>
-
+    <div class="col-12" style="justify-items: flex-end">
+      <get-by-name-form />
+    </div>
+    <div class="col-12"></div>
     <div class="col-12 q-mt-lg" v-if="list">
       <q-table
         :rows="list"
@@ -43,14 +46,7 @@
       </q-table>
     </div>
     <div class="row text-center q-gutter-sm q-mt-sm">
-      <q-btn
-        v-for="(item, index) in pagination.pages"
-        :key="index"
-        :class="{ 'bg-info ': item.current }"
-        @click.prevent="getListUsers(item.page)"
-      >
-        {{ item.page }}
-      </q-btn>
+      <pagination-list />
     </div>
     <q-dialog v-model="deleteUserDialog">
       <q-card>
@@ -83,6 +79,8 @@ import { useUserStore } from "src/stores/user";
 import { useRouter } from "vue-router";
 import useTableUser from "src/composables/Helpers/useTableUser";
 import useUsers from "src/composables/Requests/useUsers";
+import GetByNameForm from "./GetByNameForm.vue";
+import PaginationList from "./PaginationList.vue";
 
 const { columnsUser, btnActions, handlerAction } = useTableUser();
 const filter = ref("");

@@ -19,12 +19,38 @@ export default function useUsers() {
     multError,
   } = useNotify();
   /**
-   * Request get all list customer
+   * Request get all list
    * @param {string|Number} page pagination
    */
   const getListUsers = async (page = 1) => {
     showLoading("Loading....", "bg-transparent", "positive");
     const url = page == 1 ? "v1/users" : `v1/users?page=${page}`;
+    // url = name !== "" ? "v1/users" : `v1/users?name=${name}`;
+    await api
+      .get(`${url}`)
+      .then((resp) => {
+        storeUser.setList(resp.data.users);
+        storeUser.setPagination(resp.data.pagination);
+      })
+      .catch((e) => {
+        infoNotify("erro na requisição");
+      })
+      .finally(() => {
+        hideLoading();
+      });
+  };
+  /**
+   * Request search by name
+   * @param {string} name name user
+   * @param {string|Number} page pagination
+   */
+  const getListByName = async (name, page = 1) => {
+    showLoading("Loading....", "bg-transparent", "positive");
+    const url =
+      page == 1
+        ? `v1/users?name=${name}`
+        : `v1/users?page=${page}&name=${name}`;
+    // url = name !== "" ? "v1/users" : `v1/users?name=${name}`;
     await api
       .get(`${url}`)
       .then((resp) => {
@@ -108,6 +134,7 @@ export default function useUsers() {
   return {
     getListUsers,
     updateOrCreateUser,
+    getListByName,
     deleteUser,
     getOne,
     loading,

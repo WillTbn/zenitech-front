@@ -5,6 +5,7 @@ const state = () => {
     pagination: [],
     sendAvatarButton: false,
     selectFile: "",
+    searchByName: "",
   };
 };
 
