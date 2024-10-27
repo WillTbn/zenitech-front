@@ -23,6 +23,7 @@ export default function useUsers() {
    * @param {string|Number} page pagination
    */
   const getListUsers = async (page = 1) => {
+    storeUser.setSearchByName("");
     showLoading("Loading....", "bg-transparent", "positive");
     const url = page == 1 ? "v1/users" : `v1/users?page=${page}`;
     // url = name !== "" ? "v1/users" : `v1/users?name=${name}`;
@@ -84,6 +85,7 @@ export default function useUsers() {
    * @param {Object|Array} user novos dados do usuário
    */
   const updateOrCreateUser = async (id, user) => {
+    showLoading("Loading....", "bg-transparent", "positive");
     // showLoading("Atualizando usuário....", "bg-transparent", "positive");
     api.defaults.headers.common["Accept"] = "form-data";
     api.defaults.headers.common["Content-Type"] = "multipart/form-data";
@@ -105,6 +107,7 @@ export default function useUsers() {
         if (url == "v1/user") {
           getListUsers();
           router.replace("/");
+          storeUser.setUserEdit(null);
         }
       })
       .catch((e) => {

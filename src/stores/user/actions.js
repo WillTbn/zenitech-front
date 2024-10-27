@@ -17,5 +17,8 @@ const actions = {
   setSelectFile(payload) {
     this.selectFile = payload;
   },
+  setSearchByName(payload) {
+    this.searchByName = payload;
+  },
 };
 export default { ...actions };
