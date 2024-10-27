@@ -15,7 +15,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-page-container>
+    <q-page-container class="q-mx-lg">
       <router-view />
     </q-page-container>
 

@@ -1,8 +1,11 @@
 <template>
   <q-form
-    class="FormUser row justify-center q-gutter-lg"
+    class="FormUser row justify-center q-gutter-lg q-mr-lg q-ml-sm"
     @submit.prevent="onSubmit"
   >
+    <div class="col-12">
+      <user-avatar />
+    </div>
     <div class="col-12">
       <q-input standout v-model="userEdit.name" label="Name" />
     </div>
@@ -36,7 +39,7 @@ import { storeToRefs } from "pinia";
 import useUsers from "src/composables/Requests/useUsers";
 import { useUserStore } from "src/stores/user";
 import { useRoute } from "vue-router";
-
+import UserAvatar from "src/components/UserAvatar.vue";
 const storeUser = useUserStore();
 const { userEdit } = storeToRefs(storeUser);
 const { updateOrCreateUser } = useUsers();

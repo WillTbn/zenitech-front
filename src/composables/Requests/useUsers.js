@@ -9,7 +9,7 @@ export default function useUsers() {
   const loading = ref(false);
   const router = useRouter();
   const storeUser = useUserStore();
-  // const { list } = storeToRefs(storeUser);
+  const { selectFile } = storeToRefs(storeUser);
   const {
     errorNotify,
     infoNotify,
@@ -58,11 +58,22 @@ export default function useUsers() {
    * @param {Object|Array} user novos dados do usuário
    */
   const updateOrCreateUser = async (id, user) => {
-    showLoading("Atualizando usuário....", "bg-transparent", "positive");
+    // showLoading("Atualizando usuário....", "bg-transparent", "positive");
+    api.defaults.headers.common["Accept"] = "form-data";
+    api.defaults.headers.common["Content-Type"] = "multipart/form-data";
+
     const url = id ? `v1/user/${id}` : "v1/user";
-    // console.log("aquiiii->", data);
+    let formData = new FormData();
+
+    if (selectFile.value) {
+      formData.append("photo", selectFile.value, selectFile.value.name);
+    }
+    formData.append("name", user.name);
+    formData.append("email", user.email);
+    formData.append("date_of_birth", user.date_of_birth);
+
     await api
-      .post(`${url}`, { ...user })
+      .post(`${url}`, formData)
       .then((resp) => {
         successNotify(resp.data.message);
         if (url == "v1/user") {
@@ -75,6 +86,7 @@ export default function useUsers() {
       })
       .finally(() => {
         hideLoading();
+        api.defaults.headers.common["Accept"] = "application/json";
       });
   };
   const deleteUser = async (id) => {

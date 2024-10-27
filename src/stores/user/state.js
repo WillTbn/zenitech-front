@@ -3,6 +3,8 @@ const state = () => {
     list: [],
     userEdit: null,
     pagination: [],
+    sendAvatarButton: false,
+    selectFile: "",
   };
 };
 
